@@ -61,25 +61,10 @@ may also apply:
 `AutowireCandidateResolver`, meaning that it will be able to inject
 dependencies from Guice modules that are not registered as beans.
 
-* If the bean factory contains any beans of type `ProvisionListener`
-(a Guice lifecysle listener), then those will be instantiated and
-registered with Guice.
-
 To take advantage of the autowiring the bean factory must come from an
 `ApplicationContext` that is not fully refreshed (refreshing would
 resolve all the dependencies and fail because the Guice resolver is
-not yet registered). To help you build bean factories that have this
-quality there is a convenience class called `BeanFactoryProvider` with
-static methods which you can use to create a provider to inject into a
-`SpringModule`.  Example:
-
-```java
-Injector injector = Guice.createInjector(new SimpleGuiceModule(), 
-    new SpringModule(BeanFactoryProvider.from(SpringConfiguration.class)));
-```
-
-The `SimpleGuiceModule` contains a component that the
-`SpringConfiguration` depends on.
+not yet registered).
 
 ## Using existing Guice Modules in a Spring ApplicationContext
 

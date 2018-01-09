@@ -20,18 +20,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Provider;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Binder;
 import com.google.inject.Injector;
 import com.google.inject.Key;
+import com.google.inject.Provider;
 import com.google.inject.ProvisionException;
 import com.google.inject.Stage;
 import com.google.inject.TypeLiteral;
-import com.google.inject.matcher.Matchers;
 import com.google.inject.name.Names;
-import com.google.inject.spi.ProvisionListener;
 
 import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -72,11 +70,6 @@ public class SpringModule extends AbstractModule {
 		if (binder().currentStage() != Stage.TOOL) {
 			if (beanFactory == null) {
 				beanFactory = beanFactoryProvider.get();
-			}
-			if (beanFactory.getBeanNamesForType(ProvisionListener.class).length > 0) {
-				binder().bindListener(Matchers.any(),
-						beanFactory.getBeansOfType(ProvisionListener.class).values()
-								.toArray(new ProvisionListener[0]));
 			}
 			if (beanFactory instanceof DefaultListableBeanFactory) {
 				((DefaultListableBeanFactory) beanFactory)

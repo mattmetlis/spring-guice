@@ -41,7 +41,6 @@ import com.google.inject.Injector;
 import com.google.inject.Key;
 import com.google.inject.Module;
 import com.google.inject.name.Named;
-import com.google.inject.spi.ElementSource;
 
 @Configuration
 @Order(Ordered.HIGHEST_PRECEDENCE + 10)
@@ -70,8 +69,8 @@ class ModuleRegistryConfiguration implements BeanDefinitionRegistryPostProcessor
 			args.addIndexedArgumentValue(0, key.getTypeLiteral().getRawType());
 			args.addIndexedArgumentValue(1, binding.getProvider());
 			bean.setConstructorArgumentValues(args);
-			if (source != null && source instanceof ElementSource) {
-				bean.setResourceDescription(((ElementSource) source).getDeclaringSource().toString());
+			if (source != null) {
+				bean.setResourceDescription(source.toString());
 			} else {
 				bean.setResourceDescription("spring-guice");
 			}
